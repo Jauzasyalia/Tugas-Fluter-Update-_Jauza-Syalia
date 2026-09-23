@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-// Import file komponen reusable yang sudah kamu buat
-import 'package:coba_pertama/components/custom_textfield.dart';
-import 'package:coba_pertama/components/custom_button.dart'; // Gantilah sesuai nama file button kamu
+import 'package:coba_pertama/components/custom_button.dart';
+import 'package:coba_pertama/components/custom_textfield.dart'; // Hanya di-import 1x
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -34,7 +33,9 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Welcome to Application $statusLogin",
+              statusLogin.isEmpty
+                  ? "Welcome to Application"
+                  : "Welcome to Application ($statusLogin)",
               style: const TextStyle(
                 fontSize: 20,
                 color: Color.fromARGB(255, 240, 6, 6),
@@ -43,20 +44,24 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 20),
             
-            // Menggunakan CustomTextfield
+            // CustomTextfield Username
             CustomTextfield(
               txtController: username,
               myHint: "input username",
+              keyboardType: TextInputType.text,
+              inputFormatters: const [],
             ),
             const SizedBox(height: 10),
-            
+
+            // CustomTextfield Password
             CustomTextfield(
               txtController: password,
               myHint: "input password",
+              keyboardType: TextInputType.visiblePassword,
+              inputFormatters: const [],
             ),
-            const SizedBox(height: 20),
             
-            // Menggunakan CustomButton Reusable Component
+            // Row Tombol Login & Register
             Row(
               children: [
                 Expanded(
