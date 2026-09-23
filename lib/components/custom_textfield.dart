@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/services/text_formatter.dart';
 
 class CustomTextfield extends StatelessWidget {
   // kita list variabrl yg di butuh kan 
@@ -8,7 +9,7 @@ class CustomTextfield extends StatelessWidget {
   const CustomTextfield({
     super.key,
     required this.txtController,
-    required this.myHint,
+    required this.myHint, required TextInputType keyboardType, required List<TextInputFormatter> inputFormatters,
     });
 
   @override
