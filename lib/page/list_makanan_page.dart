@@ -1,5 +1,6 @@
-import 'package:coba_pertama/controller/list_makanan_controller.dart' show ListmakananController;
+import 'package:coba_pertama/controller/list_makanan_controller.dart';
 import 'package:coba_pertama/page/detail_makanan_page.dart';
+import 'package:coba_pertama/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,45 +14,63 @@ class ListMakananPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("List Makanan")),
       body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: ListView.builder(
-          itemCount: controller.listMakanan.length,
-          itemBuilder: (context, index) {
-            final makanan = controller.listMakanan[index];
-            return InkWell(
-              onTap: () {
-                // Navigasi ke DetailMakananPage membawa parameter objek makanan
-                Get.to(() => const DetailMakananPage(), arguments: makanan);
-              },
-              child: Card(
-                elevation: 3,
-                margin: const EdgeInsets.only(bottom: 12),
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        makanan.namaMakanan,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        makanan.hargamakanan,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                    ],
+        margin: const EdgeInsets.all(10),
+        child: Obx(
+          () => ListView.builder(
+            itemCount: controller.listMakanan.length,
+            itemBuilder: (context, index) {
+              final makanan = controller.listMakanan[index]; // ngambil data 
+              return Dismissible(
+                key: ValueKey(makanan.namaMakanan),
+                direction: DismissDirection.endToStart,
+                background: Container(
+                  margin: const EdgeInsets.only(bottom: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.only(right: 20),
+                  child: const Icon( // icon tong sampah 
+                    Icons.delete,
+                    color: Colors.white,
+                    size: 30,
                   ),
                 ),
-              ),
-            );
-          },
+                onDismissed: (direction) {
+                  controller.listMakanan.removeAt(index);
+                  Get.snackbar(
+                    "Berhasil", 
+                    "${makanan.namaMakanan} dihapus",
+                    snackPosition: SnackPosition.BOTTOM,
+                  );
+                },
+                child: InkWell(
+                  onTap: () {
+                    Get.to(Routes.detail_makanan, arguments: makanan);
+                  },
+                  child: Card(
+                    elevation: 10,
+                    margin: const EdgeInsets.only(bottom: 10),
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      child: ListTile(
+                        title: Text(
+                          makanan.namaMakanan,
+                          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          makanan.hargamakanan,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        trailing: const Icon(Icons.arrow_forward_ios), // icon >
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

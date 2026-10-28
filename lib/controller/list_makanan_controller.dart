@@ -2,14 +2,14 @@ import 'package:get/get.dart';
 import 'package:coba_pertama/models/makanan_model.dart';
 
 class ListmakananController extends GetxController {
-  var listMakanan = <MakananModel>[
+  RxList<MakananModel> listMakanan = <MakananModel>[
     MakananModel(
       namaMakanan: 'Soto Ayam',
       hargamakanan: 'Rp 15.000',
       gambar: 'https://tse4.mm.bing.net/th/id/OIP.k5ksubsIsTPTtoaGvOWooQHaE7?r=0&pid=Api&h=220&P=0',
       desc: 'Soto ayam kuah kuning gurih dengan irisan daging ayam segar, tauge, dan telur.',
       rating: 4.8,
-      review: 'Kuas berkaldu banget, porsinya pas dan mengenyangkan!',
+      review: 'Kuahnya berkaldu banget, porsinya pas dan mengenyangkan!',
     ),
     MakananModel(
       namaMakanan: 'Sate Ayam',
@@ -43,5 +43,5 @@ class ListmakananController extends GetxController {
       rating: 4.7,
       review: 'Seafoodnya fresh dan bumbunya mantap.',
     ),
-  ].obs;
+  ].obs; // fungsi buat geser sama ngasih tau ui klo ada yg di hps
 }
